@@ -11,7 +11,7 @@ const Navbar = () => {
   const [isActive, setIsActive] = useState('dashboard');
   const [toggleDrawer , setToggleDrawer] = useState(false);
 
-  const address = '0xabc';
+  const address = '0xFDcaEa3f5A30BD85d1e96219b443fe5e5E38D1a2';
 
   return (
    <div className='flex md:flex-row flex-col-reverse
