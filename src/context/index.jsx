@@ -1,10 +1,11 @@
 import React, { useContext, createContext } from 'react' ;
 
-import { useAddress, useContract, useWallet, useContractWrite }
+import { useAddress, useContract, useContractWrite , useConnect, metamaskWallet}
 from '@thirdweb-dev/react';
 import {ethers} from 'ethers';
 
 const StateContext = createContext();
+const metamaskConfig = metamaskWallet();
 
 export const StateContextProvider = ({children}) =>{
     const { contract } = useContract
@@ -13,7 +14,11 @@ export const StateContextProvider = ({children}) =>{
     useContractWrite(contract, 'createCampaign');
 
     const address = useAddress();
-    const connect = useWallet();
+    const connectd = useConnect();
+    const connect = async () => {
+        const wallet = await connectd(metamaskConfig, connectOptions);
+        console.log("connected to ", wallet);
+      }
 
     const publishCampaign = async (form) => {
         try {
@@ -42,6 +47,7 @@ export const StateContextProvider = ({children}) =>{
         < StateContext.Provider
             value={{ address,
             contract,
+            connect,
             CreateCampaign: publishCampaign,
             }}
         >

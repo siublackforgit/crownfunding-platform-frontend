@@ -1,17 +1,17 @@
-import React, { useState } from 'react';
+import React, { useState  } from 'react';
 import { Link , useNavigate } from 'react-router-dom';
 
 import { CustomButton } from './';
 import { logo, menu, search, thirdweb } from '../assets';
 import { navlinks } from '../constants';
-
+import { useStateContext } from '../context';
 
 const Navbar = () => {
   const navigate = useNavigate();
   const [isActive, setIsActive] = useState('dashboard');
   const [toggleDrawer , setToggleDrawer] = useState(false);
 
-  const address = '0xFDcaEa3f5A30BD85d1e96219b443fe5e5E38D1a2';
+  const { connect, address } = useStateContext();
 
   return (
    <div className='flex md:flex-row flex-col-reverse
@@ -32,9 +32,9 @@ const Navbar = () => {
         styles={address ? 'bg-[#1dc071]':'bg-[#8c6dfd]'}
         handleClick={()=>{
           if(address){
-            navigate('create-campaign')
+            navigate('create-campaign');
           }else{
-            'connect()'
+            connect();
           }
         }}
       />
@@ -119,7 +119,7 @@ const Navbar = () => {
           if(address){
             navigate('create-campaign')
           }else{
-            'connect()'
+            connect();
           }
         }}
       />
